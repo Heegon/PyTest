@@ -90,7 +90,7 @@ pltdata2("France","")
 day3line = [min_case*2**((i/3)) for i in range(0,40)]
 plt.plot(range(0,40), day3line, label='Dbl every 3d',color='k')
 
-plt.text(30,200, 'Fit to a Logistic curve f(a,b,c;t) = a/(1+exp(b-c*t)) \nCircles: Inflextion points (t=b/c)')
+plt.text(30,200, 'Fit to a Logistic curve f(a,b,c;t) = a/(1+exp(b-c*t)) \nCircles: Inflextion points (t=b/c)\n※Caution:Error can be larger if the inflextion point has not arrived')
 lastday = str(header[-1].text)
 plt.title('Logistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\ndata: '+url + '\nfacebook.com/Heegon.Moon')
 
