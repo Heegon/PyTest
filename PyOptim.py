@@ -17,11 +17,15 @@ rows = table.select('tbody > tr')
 header = table.select('th')
 global ddata 
 
-def f(x):   # The logistic function
+
+def flogistic(a,b,c,t): # The logistic function
+    return a/(1+np.exp( (b-c*t)/exp_scale) )
+
+def f(x):   # cost function
     global ddata 
     sum=0.0
     for t in range(0,len(ddata)):
-           sum = sum + (ddata[t] - (x[0]/(1+np.exp((x[1]-x[2]*t)/exp_scale))) )**2
+           sum = sum + (ddata[t] - flogistic(x[0],x[1],x[2],t))**2
     return sum
 
 
@@ -35,13 +39,14 @@ def pltdata2(country,region):
                 if int((cells[i].text)) > min_case :
                     ddata = [float(x.text) for x in cells[i:]]
                     result = optimize.minimize(f, [10, 10,1], method="CG")    
+
                     print(country2, result.x)
-                    edata = [result.x[0]/(1+np.exp((result.x[1]-result.x[2]*t)/exp_scale))  for t in range(0,50)]
+                    edata = [flogistic(result.x[0],result.x[1], result.x[2], t)  for t in range(0,50)]
                     plt.plot(range(0,len(ddata)), ddata,label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
                     plt.plot(range(0,50), edata, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
 
                     inflex = result.x[1]/result.x[2]
-                    infley = result.x[0]/(1+np.exp((result.x[1]-result.x[2]*inflex)/exp_scale)) 
+                    infley = flogistic(result.x[0],result.x[1], result.x[2], inflex)
 
                     plt.plot(inflex, infley, 'bo')
                     plt.text(inflex+.5, infley, country2)
