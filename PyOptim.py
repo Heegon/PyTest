@@ -5,6 +5,11 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import random
 
+from matplotlib import font_manager, rc
+font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgunsl.ttf").get_name()
+rc('font', family=font_name)
+
+
 exp_scale = 10000
 min_case = 1000
 
@@ -35,7 +40,7 @@ def pltdata2(country,region):
         cells = row.select('td')
         if (cells[2].text == country and cells[1].text == region) :
             country2 = cells[2].text+" "+ cells[1].text
-            for i in range(6,len(cells)-1):
+            for i in range(6,len(cells)):
                 if int((cells[i].text)) > min_case :
                     ddata = [float(x.text) for x in cells[i:]]
                     result = optimize.minimize(f, [10, 10,1], method="CG")    
