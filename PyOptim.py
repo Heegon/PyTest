@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import random
 
 exp_scale = 10000
-min_case = 100
+min_case = 1000
 
 url= "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 html = urlopen(url)  
@@ -52,21 +52,26 @@ def pltdata2(country,region):
                     plt.text(inflex+.5, infley, country2)
 
                     return 
+
 pltdata2("Korea, South","")
 pltdata2("US","")
-pltdata2("Italy","")
+#pltdata2("China","Hubei")
 pltdata2("Japan","")
+pltdata2("Italy","")
 pltdata2("Spain","")
 pltdata2("Germany","")
 pltdata2("Sweden","")
 pltdata2("United Kingdom","")
 pltdata2("France","")
+pltdata2("Iran","")
+pltdata2("Turkey","")
+pltdata2("Israel","")
 
+day3max = 60-int(np.log10(min_case))*10
+day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
+plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
 
-day3line = [min_case*2**((i/3)) for i in range(0,40)]
-plt.plot(range(0,40), day3line, label='Dbl every 3d',color='k')
-
-plt.text(30,200, 'Fit to a Logistic curve f(a,b,c;t) = a/(1+exp(b-c*t)) \nCircles: Inflextion points (t=b/c)\
+plt.text(30,2*min_case, 'Fit to a Logistic curve f(a,b,c;t) = a/(1+exp(b-c*t)) \nCircles: Inflextion points (t=b/c)\
 \n※Caution:Error can be larger if the inflextion point has not arrived')
 lastday = str(header[-1].text)
 plt.title('Logistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\ndata: '+url + '\nfacebook.com/Heegon.Moon')
