@@ -5,9 +5,9 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import random
 
-from matplotlib import font_manager, rc
-font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgunsl.ttf").get_name()
-rc('font', family=font_name)
+#from matplotlib import font_manager, rc
+#font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgunsl.ttf").get_name()
+#rc('font', family=font_name)
 
 
 exp_scale = 100000
