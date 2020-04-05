@@ -12,7 +12,7 @@ import random
 
 exp_scale = 100000
 min_case = 1000
-reg_days = 7
+reg_days = 10
 
 url= "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 html = urlopen(url)  
@@ -47,6 +47,7 @@ def pltdata2(country,region):
                     nsample = len(ddata)
                     inflex=[]
                     infley=[]
+                    cclr = np.random.rand(3,)
                     for j in range (0,reg_days):
                         
                         result = optimize.minimize(f, [10, 10,1], method="CG")    
@@ -56,11 +57,11 @@ def pltdata2(country,region):
 
                         del ddata[-1]
 
-                    plt.plot(inflex, infley, marker='.',linestyle=':')
+                    plt.plot(inflex, infley, color=cclr, marker='.',linestyle=':')
                    # plt.plot(inflex[0], infley[0], '>')
-                    plt.plot(inflex[-1], infley[-1], marker="$S$",color='k')
-                    plt.plot(inflex[0], infley[0], 'o')
-                    plt.text(inflex[0]+.1, infley[0], country2+' (#smp_dat:'+str(nsample)+')')
+                    plt.plot(inflex[-1], infley[-1], color=cclr,marker="$S$")
+                    plt.plot(inflex[0], infley[0], marker='o',color=cclr)
+                    plt.text(inflex[0]+.1, infley[0], country2+'('+str(nsample)+','+str(int(inflex[0]-nsample))+')')
 
                     return 
 
@@ -74,7 +75,7 @@ pltdata2("Germany","")
 pltdata2("Sweden","")
 pltdata2("United Kingdom","")
 pltdata2("France","")
-#pltdata2("Iran","")
+pltdata2("Iran","")
 pltdata2("Turkey","")
 pltdata2("Israel","")
 
@@ -82,17 +83,13 @@ pltdata2("Israel","")
 day3max = 60-int(np.log10(min_case))*10
 day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
 plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
-
 plt.text(30,2*min_case, 'Fit to a Logistic curve f(a,b,c;t) = a/(1+exp(b-c*t)) \nCircles: Inflextion points (t=b/c)\
 \n※Caution:Error can be larger if the inflextion point has not arrived')
 '''
 
 lastday = str(header[-1].text)
-plt.title('Logistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\nInflextion point daily trajectroy\ndata: '+url + '\nfacebook.com/Heegon.Moon')
+plt.title('Inflextion point 7-Day Track\nLogistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\ndata: '+url + '\nfacebook.com/Heegon.Moon')
 
 plt.yscale('log')
 plt.legend()
 plt.show()
-
-
-
