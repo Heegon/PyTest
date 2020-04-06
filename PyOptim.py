@@ -46,9 +46,12 @@ def pltdata2(country,region):
                     result = optimize.minimize(f, [10, 10,1], method="CG")    
 
                     print(country2, result.x)
+                    
+                    cclr = np.random.rand(3,)
+                    
                     edata = [flogistic(result.x[0],result.x[1], result.x[2], t)  for t in range(0,50)]
-                    plt.plot(range(0,len(ddata)), ddata,label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
-                    plt.plot(range(0,50), edata, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
+                    plt.plot(range(0,len(ddata)), ddata, color=cclr, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
+                    plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
 
                     inflex = result.x[1]/result.x[2]
                     infley = flogistic(result.x[0],result.x[1], result.x[2], inflex)
