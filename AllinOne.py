@@ -74,13 +74,16 @@ def pltdata2(country,region):
                             plt.plot(range(0,len(ddata)), ddata, color=cclr, linewidth = 0.7, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
                             plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
 
+                            #p_today = int(ddata[-1]/result.x[0]*100)
+
                         del ddata[-1]
 
-                    plt.plot(inflex, infley, color=cclr, marker='.',linestyle='--')
+                    plt.plot(inflex, infley, color=cclr, marker='o',linestyle='--',fillstyle='none')
                    # plt.plot(inflex[0], infley[0], '>')
-                    plt.plot(inflex[-1], infley[-1], color=cclr,marker='>')
+                    plt.plot(inflex[-1], infley[-1], color=cclr,marker='o',fillstyle='right')
                     plt.plot(inflex[0], infley[0], marker='o',color=cclr)
                     plt.text(inflex[0]+.1, infley[0], country2+'('+str(nsample)+','+str(int(inflex[0]-nsample))+')')
+                    #plt.text(inflex[0]+.1, infley[0], country2+'('+str(nsample)+','+str(int(inflex[0]-nsample))+', '+str(p_today)+'%)')
 
                     return 
 
@@ -104,7 +107,7 @@ day3max = 60-int(np.log10(min_case))*10
 day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
 plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
 '''
-plt.text(30,3000, 'numbers: (sampling size , days to the inflextion point)\nPython code: https://github.com/Heegon/PyTest')
+plt.text(30,3000, 'numbers: (sampling size , days to the inflextion point, cur_case/est_case %)\nPython code: https://github.com/Heegon/PyTest')
 
 
 lastday = str(header[-1].text)
