@@ -1,4 +1,4 @@
-#covid-19 # confirmed cases logistic regression  hgmoon68@gmail.com
+#covid-19 logistic regression  hgmoon68@gmail.com
 
 import numpy as np
 from scipy import optimize
@@ -56,60 +56,62 @@ def pltdata2(country,region):
             for i in range(6,len(cells)):
                 if int((cells[i].text)) > min_case :
 
-                    ddata = [float(x.text) for x in cells[i:]]
+                    ddata = [int(x.text) for x in cells[i:]]
                     nsample = len(ddata)
                     inflex=[]
                     infley=[]
                     #cclr = np.random.rand(3,)
                     #cclr = ccmap(random.randrange(0,20))
-                    cclr = new_colors[ccount]
-                    ccount += 1
+
+
                     for j in range (0,reg_days):
-                        
+                        cclr = new_colors[ccount]
+                        ccount +=1
+
                         result = optimize.minimize(f, [10, 10,1], method="CG")    
 
                         inflex.append( result.x[1]/result.x[2])
                         infley.append(flogistic(result.x[0],result.x[1], result.x[2], inflex[-1]))
 
-                        if j==0: # data and projection plot
-                            edata = [flogistic(result.x[0],result.x[1], result.x[2], t)  for t in range(0,50)]
-                            plt.plot(range(0,len(ddata)), ddata, color=cclr, linewidth = 0.7, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
-                            plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
+                        if j==0:
+                            plt.plot(range(0,len(ddata)), ddata, color=cclr, linewidth = 1.0, label=country2+':cur_cases '+str(ddata[-1]))
 
-                            #p_today = int(ddata[-1]/result.x[0]*100)
+                        edata = [flogistic(result.x[0],result.x[1], result.x[2], t)  for t in range(0,50)]
+                        plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+str(j)+'days ago'+"(est:"+str(int(result.x[0]))+")")
+
 
                         del ddata[-1]
 
-                    plt.plot(inflex, infley, color=cclr, marker='o',linestyle='--',fillstyle='none')
+                    plt.plot(inflex, infley, color='b', marker='o',linestyle='--',fillstyle='none')
                    # plt.plot(inflex[0], infley[0], '>')
-                    plt.plot(inflex[-1], infley[-1], color=cclr,marker='o',fillstyle='right')
-                    plt.plot(inflex[0], infley[0], marker='o',color=cclr)
+                    plt.plot(inflex[-1], infley[-1], color='b',marker='o',fillstyle='right')
+                    plt.plot(inflex[0], infley[0], marker='o',color='b')
                     plt.text(inflex[0]+.1, infley[0], country2+'('+str(nsample)+','+str(int(inflex[0]-nsample))+')')
                     #plt.text(inflex[0]+.1, infley[0], country2+'('+str(nsample)+','+str(int(inflex[0]-nsample))+', '+str(p_today)+'%)')
 
                     return 
 
 
-pltdata2("Korea, South","")
-pltdata2("US","")
+#pltdata2("Korea, South","")
+#pltdata2("US","")
 #pltdata2("China","Hubei")
-pltdata2("Japan","")
-pltdata2("Italy","")
-pltdata2("Spain","")
-pltdata2("Germany","")
-pltdata2("Sweden","")
-pltdata2("United Kingdom","")
+#pltdata2("Japan","")
+#pltdata2("Italy","")
+#pltdata2("Spain","")
+#pltdata2("Germany","")
+#pltdata2("Sweden","")
+#pltdata2("United Kingdom","")
 pltdata2("France","")
-pltdata2("Iran","")
-pltdata2("Turkey","")
-pltdata2("Israel","")
+#pltdata2("Iran","")
+#pltdata2("Turkey","")
+#pltdata2("Israel","")
 
-'''
+
 day3max = 60-int(np.log10(min_case))*10
 day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
 plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
-'''
-plt.text(30,3000, 'numbers: (sampling size , days to the inflextion point, cur_case/est_case %)\nPython code: https://github.com/Heegon/PyTest')
+
+plt.text(30,3000, 'numbers: (sampling size , days to the inflextion point)\nPython code: https://github.com/Heegon/PyTest')
 
 
 lastday = str(header[-1].text)
@@ -118,3 +120,4 @@ plt.title('Logistic Regression: corona-19 confirmed cases - the day of '+str(min
 plt.yscale('log')
 plt.legend()
 plt.show()
+

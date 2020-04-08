@@ -1,3 +1,5 @@
+#covid-19 # confirmed cases logistic regression  hgmoon68@gmail.com
+
 import numpy as np
 from scipy import optimize
 from matplotlib import pyplot as plt
