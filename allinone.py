@@ -16,7 +16,7 @@ from cycler import cycler
 
 exp_scale = 100000
 min_case = 1000
-reg_days = 14
+reg_days = 7
 
 url= "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 html = urlopen(url)  
@@ -102,7 +102,9 @@ pltdata2("United Kingdom","")
 pltdata2("France","")
 pltdata2("Iran","")
 pltdata2("Turkey","")
-pltdata2("Israel","")
+#pltdata2("Israel","")
+pltdata2("India","")
+
 
 '''
 day3max = 60-int(np.log10(min_case))*10
