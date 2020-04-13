@@ -1,3 +1,6 @@
+#############
+#CURRENTLY NOT WORKING PROPERLY
+
 #covid-19 logistic regression  hgmoon68@gmail.com
 
 import numpy as np
@@ -35,7 +38,7 @@ new_colors = ['b', '#ff7f0e', '#2ca02c', '#d62728',  #'#1f77b4'
               '#31a354', '#17becf', '#fdae6b', '#756bb1']
 
 def flogistic(a,b,c,t): # The logistic function
-    return a/(1+np.exp( (b-c*t)/exp_scale) )
+    return a/(1+np.exp( (b-c*t)/exp_scale))**1.1
 
 def f(x):   # cost function
     global ddata 
@@ -93,7 +96,7 @@ def pltdata2(country,region):
 
 
 #pltdata2("Korea, South","")
-#pltdata2("US","")
+pltdata2("US","")
 #pltdata2("China","Hubei")
 #pltdata2("Japan","")
 #pltdata2("Italy","")
@@ -101,7 +104,7 @@ def pltdata2(country,region):
 #pltdata2("Germany","")
 #pltdata2("Sweden","")
 #pltdata2("United Kingdom","")
-pltdata2("France","")
+#pltdata2("France","")
 #pltdata2("Iran","")
 #pltdata2("Turkey","")
 #pltdata2("Israel","")

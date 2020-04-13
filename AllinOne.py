@@ -14,9 +14,10 @@ from cycler import cycler
 #rc('font', family=font_name)
 
 
-exp_scale = 10000
+exp_scale = 100000
 min_case = 1000
 reg_days = 7
+parm_90= np.log(1/0.9 - 1) * exp_scale
 
 url= "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 html = urlopen(url)  
@@ -76,6 +77,10 @@ def pltdata2(country,region):
                             plt.plot(range(0,len(ddata)), ddata, color=cclr, linewidth = 0.7, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
                             plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
 
+                            #90% plot
+                            d90p = (result.x[1]-parm_90)/result.x[2]
+                            plt.plot(d90p, result.x[0]*0.9 , marker='D',color=cclr,fillstyle='none')
+
                             #p_today = int(ddata[-1]/result.x[0]*100)
 
                         del ddata[-1]
@@ -103,18 +108,20 @@ pltdata2("France","")
 pltdata2("Iran","")
 pltdata2("Turkey","")
 pltdata2("Israel","")
+#pltdata2("India","")
 
 '''
 day3max = 60-int(np.log10(min_case))*10
 day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
 plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
 '''
-plt.text(30,3000, 'numbers: (sampling size , days to the inflextion point, cur_case/est_case %)\nPython code: https://github.com/Heegon/PyTest')
+plt.text(30,3000, 'numbers: (sampling size , days to the inflextion point)\nDaimonds: 90% of est. cases\nCurve Eq: f(a,b,c;t)=a/(1+exp(b-ct))\nPython code: https://github.com/Heegon/PyTest')
 
 
 lastday = str(header[-1].text)
-plt.title('Logistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\nand Inflextion point 7-Day Track \ndata: '+url )
+plt.title('Logistic Regression: corona-19 confirmed cases - '+str(min_case)+'th case day to ' +lastday +  '\nand Inflextion point 7-Day Track \ndata: '+url )
 
 plt.yscale('log')
-plt.legend()
+plt.ylim(1000,1000000)
+plt.legend(loc='upper left')
 plt.show()

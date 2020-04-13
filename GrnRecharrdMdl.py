@@ -7,9 +7,9 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import random
 
-from matplotlib import font_manager, rc
-font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgunsl.ttf").get_name()
-rc('font', family=font_name)
+#from matplotlib import font_manager, rc
+#font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgunsl.ttf").get_name()
+#rc('font', family=font_name)
 
 
 exp_scale = 10000
@@ -25,14 +25,14 @@ header = table.select('th')
 global ddata 
 
 
-def flogistic(a,b,c,t): # The logistic function
-    return a/(1+np.exp( (b-c*t)/exp_scale))
+def flogistic(a,b,c,t,mu): # The logistic function simplied from https://en.wikipedia.org/wiki/Generalised_logistic_function
+    return a/((1+np.exp( (b-c*t)/exp_scale))**(1/mu))
 
 def f(x):   # cost function
     global ddata 
     sum=0.0
     for t in range(0,len(ddata)):
-           sum = sum + (ddata[t] - flogistic(x[0],x[1],x[2],t))**2
+           sum = sum + (ddata[t] - flogistic(x[0],x[1],x[2],t,x[3]))**2
     return sum
 
 
@@ -51,12 +51,12 @@ def pltdata2(country,region):
                     
                     cclr = np.random.rand(3,)
                     
-                    edata = [flogistic(result.x[0],result.x[1], result.x[2], t)  for t in range(0,50)]
+                    edata = [flogistic(result.x[0],result.x[1], result.x[2], t, result.x[3])  for t in range(0,50)]
                     plt.plot(range(0,len(ddata)), ddata, color=cclr, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
                     plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
 
                     inflex = result.x[1]/result.x[2]
-                    infley = flogistic(result.x[0],result.x[1], result.x[2], inflex)
+                    infley = flogistic(result.x[0],result.x[1], result.x[2], inflex, result.x[3])
 
                     plt.plot(inflex, infley, 'bo')
                     plt.text(inflex+.5, infley, country2)
