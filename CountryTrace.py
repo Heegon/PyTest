@@ -17,7 +17,7 @@ from cycler import cycler
 #rc('font', family=font_name)
 
 
-exp_scale = 10000
+exp_scale = 100000
 min_case = 1000
 reg_days = 7
 
@@ -96,9 +96,9 @@ def pltdata2(country,region):
 
 
 #pltdata2("Korea, South","")
-pltdata2("US","")
+#pltdata2("US","")
 #pltdata2("China","Hubei")
-#pltdata2("Japan","")
+pltdata2("Japan","")
 #pltdata2("Italy","")
 #pltdata2("Spain","")
 #pltdata2("Germany","")

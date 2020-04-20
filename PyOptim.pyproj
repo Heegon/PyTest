@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="allcountries.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="AllinOne.py">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GrnRecharrdMdl.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="OtherFunc.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyCoronaInflexTrj.py" />

@@ -7,10 +7,6 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import random
 
-from matplotlib import font_manager, rc
-font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgunsl.ttf").get_name()
-rc('font', family=font_name)
-
 
 exp_scale = 10000
 min_case = 1000
@@ -24,6 +20,7 @@ rows = table.select('tbody > tr')
 header = table.select('th')
 global ddata 
 
+min_watch = input("Min case to plot:")
 
 def flogistic(a,b,c,t): # The logistic function
     return a/(1+np.exp( (b-c*t)/exp_scale))
@@ -36,15 +33,17 @@ def f(x):   # cost function
     return sum
 
 
-def pltdata2(country,region):
+def pltdata2():
     global ddata 
     for row in rows:
         cells = row.select('td')
-        if (cells[2].text == country and cells[1].text == region) :
+        if int(cells[-1].text) > int(min_watch) :
+            if cells[2].text =='China': continue
             country2 = cells[2].text+" "+ cells[1].text
             for i in range(6,len(cells)):
                 if int((cells[i].text)) > min_case :
                     ddata = [float(x.text) for x in cells[i:]]
+
                     result = optimize.minimize(f, [10, 10,1], method="CG")    
 
                     print(country2, result.x)
@@ -61,21 +60,11 @@ def pltdata2(country,region):
                     plt.plot(inflex, infley, 'bo')
                     plt.text(inflex+.5, infley, country2)
 
-                    return 
+                    break 
+    return
 
-pltdata2("Korea, South","")
-pltdata2("US","")
-#pltdata2("China","Hubei")
-pltdata2("Japan","")
-pltdata2("Italy","")
-pltdata2("Spain","")
-pltdata2("Germany","")
-pltdata2("Sweden","")
-pltdata2("United Kingdom","")
-pltdata2("France","")
-pltdata2("Iran","")
-pltdata2("Turkey","")
-pltdata2("Israel","")
+pltdata2()
+
 
 day3max = 60-int(np.log10(min_case))*10
 day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
@@ -87,7 +76,8 @@ lastday = str(header[-1].text)
 plt.title('Logistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\ndata: '+url + '\nfacebook.com/Heegon.Moon')
 
 plt.yscale('log')
-plt.legend()
+#plt.legend()
 plt.show()
+
 
 

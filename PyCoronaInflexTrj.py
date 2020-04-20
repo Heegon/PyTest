@@ -13,7 +13,7 @@ import random
 #rc('font', family=font_name)
 
 
-exp_scale = 10000
+exp_scale = 100000
 min_case = 1000
 reg_days = 7
 
