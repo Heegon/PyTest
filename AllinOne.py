@@ -100,7 +100,7 @@ def pltdata2(country,region):
                     #plt.text(inflex[0]+.1, infley[0], country2+'('+str(nsample)+','+str(int(inflex[0]-nsample))+', '+str(p_today)+'%)')
 
                     return 
-
+'''
 pltdata2("Korea, South","")
 pltdata2("US","")
 #pltdata2("China","Hubei")
@@ -126,7 +126,7 @@ pltdata2("Thailand","")
 pltdata2("Brazil","")
 pltdata2("Ecuador","")
 pltdata2("Peru","")
-'''
+
 
 
 '''
