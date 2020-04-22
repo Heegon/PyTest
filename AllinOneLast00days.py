@@ -151,7 +151,7 @@ plt.plot([30,30],[td_min/1.2,td_max*1.2],linestyle='-.',color='k',label='Today')
 
 plt.yscale('log')
 #plt.xscale('log')
-#plt.ylim(1000,1000000)
+plt.ylim(1000,1000000)
 plt.legend(loc='upper left')
 plt.show()
 
