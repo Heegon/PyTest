@@ -14,8 +14,8 @@ import random
 
 
 exp_scale = 100000
-min_case = 1000
-reg_days = 7
+min_case = 2000
+reg_days = 10
 
 url= "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 html = urlopen(url)  
@@ -95,7 +95,7 @@ plt.text(30,3000, 'numbers: (sampling size , days to the inflextion point)')
 
 
 lastday = str(header[-1].text)
-plt.title('Inflextion point 7-Day Track\nLogistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\ndata: '+url + '\nfacebook.com/Heegon.Moon')
+plt.title('Inflextion point 10-Day Track\nLogistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\ndata: '+url + '\nfacebook.com/Heegon.Moon')
 
 plt.yscale('log')
 plt.legend()

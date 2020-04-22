@@ -1,3 +1,4 @@
+
 #covid-19 # confirmed cases logistic regression  hgmoon68@gmail.com
 
 import numpy as np
@@ -14,8 +15,8 @@ from cycler import cycler
 #rc('font', family=font_name)
 
 
-exp_scale = 100000
-min_case = 2000
+exp_scale = 10000
+min_case = 1000
 reg_days = 7
 parm_90= np.log(1/0.9 - 1) * exp_scale
 
@@ -59,7 +60,7 @@ def pltdata2(country,region):
             for i in range(6,len(cells)):
                 if int((cells[i].text)) > min_case :
 
-                    ddata = [float(x.text) for x in cells[i:]]
+                    ddata = [float(x.text)/1000 for x in cells[i:]]
                     #if cells[2].text == 'US' : ddata[33] = 585909 #04-14 typo error
                     nsample = len(ddata)
                     inflex=[]
@@ -81,8 +82,8 @@ def pltdata2(country,region):
 
                         if j==0: # data and projection plot
                             edata = [flogistic(result.x[0],result.x[1], result.x[2], t)  for t in range(0,50)]
-                            plt.plot(range(0,len(ddata)), ddata, color=cclr, linewidth = 0.7, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
-                            plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
+                            plt.plot(range(0,len(ddata)), ddata, color=cclr, linewidth = 0.7, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+"k)")
+                            plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+"k)")
 
                             #90% plot
                             d90p = (result.x[1]-parm_90)/result.x[2]
@@ -101,7 +102,7 @@ def pltdata2(country,region):
 
                     return 
 
-
+'''
 pltdata2("Korea, South","")
 pltdata2("US","")
 #pltdata2("China","Hubei")
@@ -127,20 +128,21 @@ pltdata2("Thailand","")
 pltdata2("Brazil","")
 pltdata2("Ecuador","")
 pltdata2("Peru","")
-'''
+
 
 '''
 day3max = 60-int(np.log10(min_case))*10
 day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
 plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
 '''
-plt.text(30,1500, 'numbers: (sampling size , days to the inflextion point)\nDaimonds: 90% of est. cases\nCurve Eq: f(a,b,c;t)=a/(1+exp(b-ct))\nPython code: https://github.com/Heegon/PyTest')
+plt.text(30,1.5, 'numbers: (sampling size , days to the inflextion point)\nDaimonds: 90% of est. cases\nCurve Eq: f(a,b,c;t)=a/(1+exp(b-ct))\nPython code: https://github.com/Heegon/PyTest')
 
 
 lastday = str(header[-1].text)
 plt.title('Logistic Regression: corona-19 confirmed cases - '+str(min_case)+'th case day to ' +lastday +  '\nand Inflextion point 7-Day Track \ndata: '+url )
 
 plt.yscale('log')
+plt.ylabel('Confirmed cases (x1000)')
 #plt.xscale('log')
 #plt.ylim(1000,1000000)
 plt.legend(loc='upper left')

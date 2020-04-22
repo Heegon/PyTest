@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>87777286-7c87-47d0-8b06-b495f003bf53</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>AllinOne.py</StartupFile>
+    <StartupFile>AllinOneLast00days.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,6 +25,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AllinOne.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AllinOneLast00days.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AllinOnex1000.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CountryTrace.py">
