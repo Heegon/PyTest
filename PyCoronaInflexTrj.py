@@ -98,5 +98,5 @@ lastday = str(header[-1].text)
 plt.title('Inflextion point 10-Day Track\nLogistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\ndata: '+url + '\nfacebook.com/Heegon.Moon')
 
 plt.yscale('log')
-plt.legend()
+#plt.legend()
 plt.show()

@@ -17,7 +17,7 @@ from cycler import cycler
 exp_scale = 100000
 min_case = 1000
 reg_days = 7
-daysback = 50+1
+daysback = 30+1
 parm_90= np.log(1/0.9 - 1) * exp_scale
 
 url= "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
@@ -151,7 +151,7 @@ plt.plot([30,30],[td_min/1.2,td_max*1.2],linestyle='-.',color='k',label='Today')
 
 plt.yscale('log')
 #plt.xscale('log')
-plt.ylim(1000,1000000)
+plt.ylim(1000,None)
 plt.legend(loc='upper left')
 plt.show()
 

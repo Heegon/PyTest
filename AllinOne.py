@@ -15,7 +15,7 @@ from cycler import cycler
 
 
 exp_scale = 100000
-min_case = 2000
+min_case = 1000
 reg_days = 7
 parm_90= np.log(1/0.9 - 1) * exp_scale
 
@@ -112,8 +112,9 @@ pltdata2("Sweden","")
 pltdata2("United Kingdom","")
 pltdata2("France","")
 pltdata2("Iran","")
-pltdata2("Turkey","")
-pltdata2("Israel","")
+pltdata2("Singapore","")
+#pltdata2("Turkey","")
+#pltdata2("Israel","")
 '''
 pltdata2("Singapore","")
 pltdata2("India","")
@@ -126,7 +127,7 @@ pltdata2("Thailand","")
 pltdata2("Brazil","")
 pltdata2("Ecuador","")
 pltdata2("Peru","")
-
+'''
 
 '''
 day3max = 60-int(np.log10(min_case))*10

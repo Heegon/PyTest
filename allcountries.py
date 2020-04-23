@@ -35,6 +35,7 @@ def f(x):   # cost function
 
 def pltdata2():
     global ddata 
+    ccmap = plt.cm.get_cmap('hsv',20)
     for row in rows:
         cells = row.select('td')
         if int(cells[-1].text) > int(min_watch) :
@@ -48,14 +49,15 @@ def pltdata2():
 
                     print(country2, result.x)
                     
-                    cclr = np.random.rand(3,)
+                    cclr = ccmap(random.randrange(0,20))
                     
                     edata = [flogistic(result.x[0],result.x[1], result.x[2], t)  for t in range(0,50)]
-                    plt.plot(range(0,len(ddata)), ddata, color=cclr, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
-                    plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
 
                     inflex = result.x[1]/result.x[2]
                     infley = flogistic(result.x[0],result.x[1], result.x[2], inflex)
+
+                    plt.plot(range(0,len(ddata)), ddata, color=cclr, linewidth = 0.8, label='dat_'+country2+"(cur:"+str(int(ddata[-1]))+")")
+                    plt.plot(range(0,50), edata, color=cclr, linestyle=':',label='prj_'+country2+"(est:"+str(int(result.x[0]))+")")
 
                     plt.plot(inflex, infley, 'bo')
                     plt.text(inflex+.5, infley, country2)
@@ -70,8 +72,7 @@ day3max = 60-int(np.log10(min_case))*10
 day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
 plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
 
-plt.text(30,2*min_case, 'Fit to a Logistic curve f(a,b,c;t) = a/(1+exp(b-c*t)) \nCircles: Inflextion points (t=b/c)\
-\n※Caution:Error can be larger if the inflextion point has not arrived')
+plt.text(30,2*min_case, 'Fit to a Logistic curve f(a,b,c;t) = a/(1+exp(b-c*t)) \nCircles: Inflextion points (t=b/c)')
 lastday = str(header[-1].text)
 plt.title('Logistic Regression: corona-19 confirmed cases - the day of '+str(min_case)+'th case to ' +lastday +  '\ndata: '+url + '\nfacebook.com/Heegon.Moon')
 

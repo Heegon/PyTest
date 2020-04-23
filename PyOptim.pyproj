@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>87777286-7c87-47d0-8b06-b495f003bf53</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>AllinOneLast00days.py</StartupFile>
+    <StartupFile>InflectionTrjbyMincase.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -37,6 +37,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GrnRecharrdMdl.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InflectionTrjbyMincase.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="OtherFunc.py">
