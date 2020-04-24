@@ -69,12 +69,13 @@ def pltdata():
 
                 del ddata[-1]
 
-            plt.plot(inflex, infley, color=cclr, marker='.',linestyle=':')
-            # plt.plot(inflex[0], infley[0], '>')
-            plt.plot(inflex[-1], infley[-1], color=cclr,marker='o',fillstyle='none')
-           # plt.text(inflex[-1], infley[-1],  country2)
+            plt.plot(inflex, infley, color=cclr, linestyle=':')
+            plt.plot(inflex[-1], infley[-1], color=cclr,marker='o',fillstyle='right')
 
-            plt.plot(inflex[0], infley[0], marker='o',color=cclr)
+            #plt.plot(inflex[0], infley[0], marker='o',color=cclr)
+            plt.plot(inflex[0], infley[0], marker='o',color=cclr,markersize=10+float(cells[-1].text)/5000,alpha = 0.7)
+            plt.plot(inflex[0], infley[0], marker='o',color=cclr,markersize=10+infley[0]*2/5000.,alpha = 0.3)
+
             plt.text(inflex[0]+.1, infley[0], country2)
 
     return
@@ -85,9 +86,7 @@ day3max = 60-int(np.log10(min_case))*10
 day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
 plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
 '''
-#plt.text(30,3000, 'numbers: (sampling size , days to the inflextion point)')
-
-
+plt.text(0,1000, 'circles are linear length scale (not area)\nlarge: estimated max., small: current cases, half filled: past wk loc.')
 lastday = str(header[-1].text)
 plt.title('Inflextion point 7-Day Track\nLogistic Regression: corona-19 confirmed cases\nsampling data: last 30 days (' +lastday +  ') \
 (conf. cases >'+str(min_case)+' countries)\nsource: '+url + '\npython code: github.com/Heegon/PyTest')

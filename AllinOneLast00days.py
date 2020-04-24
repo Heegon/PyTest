@@ -107,7 +107,7 @@ def pltdata2(country,region):
 
             return 
 
-
+'''
 pltdata2("Korea, South","")
 pltdata2("US","")
 #pltdata2("China","Hubei")
@@ -127,13 +127,19 @@ pltdata2("India","")
 pltdata2("Pakistan","")
 pltdata2("Malaysia","") 
 pltdata2("Philippines","") 
-pltdata2("Indonesia","") 
-pltdata2("Thailand","") 
+#pltdata2("Indonesia","") 
+#pltdata2("Thailand","") 
 
-pltdata2("Brazil","")
-pltdata2("Ecuador","")
-pltdata2("Peru","")
-'''
+#pltdata2("Brazil","")
+#pltdata2("Ecuador","")
+#pltdata2("Peru","")
+
+pltdata2("Ireland","")
+pltdata2("South Africa","")
+pltdata2("Ireland","")
+pltdata2("Sudi Arabia","")
+
+
 
 '''
 day3max = 60-int(np.log10(min_case))*10
