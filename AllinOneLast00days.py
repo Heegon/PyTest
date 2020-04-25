@@ -107,7 +107,7 @@ def pltdata2(country,region):
 
             return 
 
-'''
+
 pltdata2("Korea, South","")
 pltdata2("US","")
 #pltdata2("China","Hubei")
@@ -138,7 +138,7 @@ pltdata2("Ireland","")
 pltdata2("South Africa","")
 pltdata2("Ireland","")
 pltdata2("Sudi Arabia","")
-
+'''
 
 
 '''
