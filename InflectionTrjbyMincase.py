@@ -15,9 +15,7 @@ import random
 
 
 exp_scale = 100000
-stmp = input('Min cases to watch:')
-min_case = int(stmp)
-
+min_case = int(input('Min cases to watch:'))
 reg_days = 7
 
 url= "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
@@ -50,8 +48,8 @@ def pltdata():
     for row in rows:
         cells = row.select('td')
         #if (cells[2].text == country and cells[1].text == region) :
-        if cells[2].text =='China': continue
-        #if cells[2].text =='Peru': continue
+        if cells[2].text =='China': continue     
+        if cells[2].text =='Korea, South': continue
         if int((cells[-1].text)) > min_case :
             country2 = cells[2].text+" "+ cells[1].text
    
@@ -70,10 +68,10 @@ def pltdata():
                 infley.append(flogistic(result.x[0],result.x[1], result.x[2], infl_t))
 
                 del ddata[-1]
-
-            plt.plot(inflex, infley, color=cclr, linestyle=':')
-            plt.plot(inflex[-1], infley[-1], color=cclr,marker='.')
-            #plt.plot(inflex[-1], infley[-1], color=cclr,marker='o',fillstyle='right')
+            if cells[2].text !='Korea, South': #too flat
+                plt.plot(inflex, infley, color=cclr, linestyle=':')
+                plt.plot(inflex[-1], infley[-1], color=cclr,marker='.')
+                #plt.plot(inflex[-1], infley[-1], color=cclr,marker='o',fillstyle='right')
 
             #plt.plot(inflex[0], infley[0], marker='o',color=cclr)
             plt.plot(inflex[0], infley[0], marker='o',color=cclr,markersize=0.12*np.sqrt(float(cells[-1].text)),alpha = 0.6)
@@ -82,14 +80,21 @@ def pltdata():
             plt.text(inflex[0]+.1, infley[0], country2)
 
     return
+
 pltdata()
 
-'''
-day3max = 60-int(np.log10(min_case))*10
-day3line = [min_case*2**((i/3)) for i in range(0,day3max)]
-plt.plot(range(0,day3max), day3line, label='Dbl every 3d',color='k')
-'''
-plt.text(0,1000, 'circles are linear scale (by area)\nlarge: estimated max., small: current cases, dot: past wk loc.')
+plt.plot(10, 500000, marker='o',color='k',markersize=0.12*np.sqrt(1000000),fillstyle = 'none')
+plt.text(10, 500000, '1000k')
+
+plt.plot(20, 500000, marker='o',color='k',markersize=0.12*np.sqrt(100000),fillstyle = 'none')
+plt.text(20, 500000, '100k')
+
+plt.plot(25, 500000, marker='o',color='k',markersize=0.12*np.sqrt(10000),fillstyle = 'none')
+plt.text(25, 500000, '10k')
+
+
+
+plt.text(20,1000, 'circles are linear scale (by area)\nlarge: estimated max., small: current cases, dot: past wk loc.')
 lastday = str(header[-1].text)
 plt.title('Inflextion point 7-Day Track\nLogistic Regression: corona-19 confirmed cases\nsampling data: last 30 days (' +lastday +  ') \
 (conf. cases >'+str(min_case)+' countries)\nsource: '+url + '\npython code: github.com/Heegon/PyTest')
