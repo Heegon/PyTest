@@ -50,6 +50,7 @@ def pltdata():
         #if (cells[2].text == country and cells[1].text == region) :
         if cells[2].text =='China': continue     
         if cells[2].text =='Korea, South': continue
+        if cells[2].text =='Australia': continue
         if int((cells[-1].text)) > min_case :
             country2 = cells[2].text+" "+ cells[1].text
    
@@ -58,16 +59,23 @@ def pltdata():
             infley=[]
             #cclr = np.random.rand(3,)
             cclr = ccmap(random.randrange(0,20))
-                    
+            
+            cbreak = False
+            
             for j in range (0,reg_days):
                         
                 result = optimize.minimize(f, [10, 10,1], method="CG")    
 
                 infl_t =  result.x[1]/result.x[2]
+                if infl_t < -20 :
+                    cbreak = True
+                    break
                 inflex.append(infl_t - nsample)
                 infley.append(flogistic(result.x[0],result.x[1], result.x[2], infl_t))
 
                 del ddata[-1]
+
+            if cbreak == True : continue
             if cells[2].text !='Korea, South': #too flat
                 plt.plot(inflex, infley, color=cclr, linestyle=':')
                 plt.plot(inflex[-1], infley[-1], color=cclr,marker='.')
