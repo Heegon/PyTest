@@ -16,8 +16,8 @@ from cycler import cycler
 
 exp_scale = 100000
 min_case = 1000
-reg_days = 7
-daysback = 30+1
+reg_days = 14
+daysback = 50+1
 parm_90= np.log(1/0.9 - 1) * exp_scale
 
 url= "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
@@ -107,7 +107,7 @@ def pltdata2(country,region):
 
             return 
 
-'''
+
 #pltdata2("Korea, South","")
 pltdata2("US","")
 #pltdata2("China","Hubei")
@@ -129,11 +129,6 @@ pltdata2("Japan","")
 pltdata2("Singapore","")
 pltdata2("India","")
 pltdata2("Pakistan","")
-#pltdata2("Malaysia","") 
-#pltdata2("Philippines","") 
-#pltdata2("Indonesia","") 
-#pltdata2("Thailand","") 
-
 pltdata2("Brazil","")
 pltdata2("Ecuador","")
 #pltdata2("Peru","")
@@ -143,7 +138,7 @@ pltdata2("Mexico","")
 pltdata2("South Africa","")
 pltdata2("Saudi Arabia","")
 pltdata2("Canada","Alberta")
-
+'''
 
 
 '''
@@ -158,11 +153,11 @@ lastday = str(header[-1].text)
 plt.title('Logistic Regression: corona-19 confirmed cases - Last 30 days (' +lastday +  ')\nand Inflextion point 7-Day Track \ndata: '+url )
 
 #today line
-plt.plot([30,30],[td_min/1.2,td_max*1.2],linestyle='-.',color='k',label='Today')  
+plt.plot([50,50],[td_min/1.2,td_max*1.2],linestyle='-.',color='k',label='Today')  
 
 plt.yscale('log')
 #plt.xscale('log')
-plt.ylim(1000,None)
+#plt.ylim(1000,None)
 plt.legend(loc='upper right')
 plt.show()
 
